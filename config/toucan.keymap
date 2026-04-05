@@ -49,7 +49,7 @@
             display-name = "ADJ";
             bindings = <
                 &kp F1   &kp Q &kp W &kp E &kp R &kp T          &kp PG_UP &kp HOME  &kp UP     &kp END   &kp LEFT_BRACKET  &kp RIGHT_BRACKET
-                &kp F2 &kp A &kp S &kp D &kp F &kp G            &kp PG_DN &kp LEFT  &kp DOWN   &kp RIGHT   &kp SEMI &nope
+                &kp F2 &kp A &kp S &kp D &kp F &kp G            &kp PG_DN &kp LEFT  &kp DOWN   &kp RIGHT   &kp SEMI &none
                 &bootloader &kp Z &kp X &kp C &kp V &kp B       &kp K_APP &kp M  &kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp FSLH &bootloader
                                 &kp F4 &kp F5 &kp F6        &kp F7 &kp F8 &kp F9
             >;
