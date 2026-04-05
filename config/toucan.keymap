@@ -43,7 +43,7 @@
                 &kp LSHFT &kp N1   &kp N2 &kp N3   &kp N4   &kp N5          &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp RSHFT
                 &to NUM &trans   &trans &trans   &trans   &trans          &kp UNDER &kp PLUS  &kp LBRC &kp RBRC &kp PIPE &to NUM
                                           &kp LGUI &trans   &kp SPACE       &kp RET   &trans    &kp RALT
-            >;ddd
+            >;
         };
 
         num {
