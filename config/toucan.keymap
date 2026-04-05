@@ -13,6 +13,27 @@
 / {
     conditional_layers {compatible = "zmk,conditional-layers";};
 
+    behaviors {
+        my_lt: layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <250>;
+            bindings = <&mo>, <&kp>;
+            display-name = "My-Layer-Tap";
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+        combo_caps_lock {
+            timeout-ms = <50>;
+            key-positions = <12 39>;
+            bindings = <&kp CAPS>;
+            layers = <BASE>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -31,7 +52,7 @@
             bindings = <
                 &bt BT_CLR &bt BT_PRV &bt BT_NXT &none &none &none          &kp C_VOL_UP &none &none &none &none &none
                 &out OUT_TOG &none &none &none &none &none                  &kp C_VOL_DN &none &none &none &none &none
-                &none &studio_unlock &none &none &none &none                &none &kp C_MUTE   &none &none &none &none
+                &bootloader &studio_unlock &none &none &none &none          &none &kp C_MUTE   &none &none &none &bootloader
                                                 &to BASE &none &none      &none  &none   &to BASE
             >;
         };
@@ -61,7 +82,7 @@
             bindings = <
                 &kp F1   &kp Q &kp W &kp E &kp R &kp T          &kp PG_UP &kp HOME  &kp UP     &kp END   &kp LEFT_BRACKET  &kp RIGHT_BRACKET
                 &kp F2 &kp A &kp S &kp D &kp F &kp G            &kp PG_DN &kp LEFT  &kp DOWN   &kp RIGHT   &kp SEMI &to ADJ
-                &bootloader &kp Z &kp X &kp C &kp V &kp B       &kp K_APP &kp M  &kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp FSLH &bootloader
+                &none &kp Z &kp X &kp C &kp V &kp B       &kp K_APP &kp M  &kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp FSLH &none
                                 &kp F4 &kp F5 &kp F6        &kp F7 &kp F8 &kp F9
             >;
         };
@@ -72,19 +93,6 @@
 
         extra_3 {
                 status = "reserved";
-        };
-    };
-};
-
-/ {
-    behaviors {
-        my_lt: layer_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <250>;
-            bindings = <&mo>, <&kp>;
-            display-name = "My-Layer-Tap";
         };
     };
 };
