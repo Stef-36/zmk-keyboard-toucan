@@ -23,14 +23,14 @@
                 bindings = <BINDING1>, <BINDING2>;)
 
 // Define zmk-macro for unicode alt+number for less repetition
-#define UC_MACRO(NAME, NUM1, NUM2, NUM3, NUM4)                                 \
-    ZMK_MACRO(NAME,
-        wait-ms = <40>;
-        tap-ms = <40>;
-        bindings
-        = <&macro_press &kp LALT>
-        , <&macro_tap &kp NUM1 &kp NUM2 &kp NUM3 &kp NUM4>
-        , <&macro_release &kp LALT>
+#define UC_MY_MACRO(NAME, NUM1, NUM2, NUM3, NUM4)                               \
+    ZMK_MACRO(NAME,                                                             \
+        wait-ms = <40>;                                                         \
+        tap-ms = <40>;                                                          \
+        bindings                                                                \
+        = <&macro_press &kp LALT>                                               \
+        , <&macro_tap &kp NUM1 &kp NUM2 &kp NUM3 &kp NUM4>                      \
+        , <&macro_release &kp LALT>                                             \
         ;)
 
 // tap: backspace | shift + tap: delete
@@ -44,9 +44,9 @@ ZMK_MOD_MORPH(bspc_del,
 SIMPLE_MORPH(uc_a, SFT, &uc_lower_a_grave, &uc_a_inner_1)
 SIMPLE_MORPH(uc_a_inner_1, CTL, &uc_upper_a_grave, &uc_lower_a_acute)
 
-UC_MACRO(uc_lower_a_grave, KP_N0, KP_N2, KP_N2, KP_N4)
-UC_MACRO(uc_upper_a_grave, KP_N0, KP_N1, KP_N9, KP_N2)
-UC_MACRO(uc_lower_a_acute, KP_N0, KP_N2, KP_N2, KP_N5)
+UC_MY_MACRO(uc_lower_a_grave, KP_N0, KP_N2, KP_N2, KP_N4)
+UC_MY_MACRO(uc_upper_a_grave, KP_N0, KP_N1, KP_N9, KP_N2)
+UC_MY_MACRO(uc_lower_a_acute, KP_N0, KP_N2, KP_N2, KP_N5)
 
 
 / {
