@@ -17,15 +17,36 @@
 #define ___ &trans
 #define XXX &none
 
-ZMK_MACRO(uc_pound,
-    wait-ms = <100>;
-    tap-ms = <40>;
-    bindings
+// Define mod-morph with a *single* mod trigger for less repetition.
+#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2)                            \
+  ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
+                bindings = <BINDING1>, <BINDING2>;)
+
+// Define zmk-macro for unicode alt+number for less repetition
+#define UC_MACRO(NAME, NUM1, NUM2, NUM3, NUM4)                                 \
+    ZMK_MACRO(NAME,
+        wait-ms = <40>;
+        tap-ms = <40>;
+        bindings
         = <&macro_press &kp LALT>
-        , <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N3>
+        , <&macro_tap &kp NUM1 &kp NUM2 &kp NUM3 &kp NUM4>
         , <&macro_release &kp LALT>
-        ;
+        ;)
+
+// tap: backspace | shift + tap: delete
+ZMK_MOD_MORPH(bspc_del,
+    bindings = <&kp BSPC>, <&kp DEL>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
 )
+
+// ºª€£°èÈéÉàÀáÁ←↓↑→ùÙúÚìÌíÍòÒóÓ«»
+// tap: à | shif + tap: À | ctrl + tap: á | ctrl + shift + tap: Á
+SIMPLE_MORPH(uc_a, SFT, &uc_lower_a_grave, &uc_a_inner_1)
+SIMPLE_MORPH(uc_a_inner_1, CTL, &uc_upper_a_grave, &uc_lower_a_acute)
+
+UC_MACRO(uc_lower_a_grave, KP_N0, KP_N2, KP_N2, KP_N4)
+UC_MACRO(uc_upper_a_grave, KP_N0, KP_N1, KP_N9, KP_N2)
+UC_MACRO(uc_lower_a_acute, KP_N0, KP_N2, KP_N2, KP_N5)
 
 
 / {
@@ -66,7 +87,7 @@ ZMK_MACRO(uc_pound,
                 &kp TAB   &kp Q &kp W &my_lt SYM E &my_lt ACC R &kp T           &kp Y &my_lt ACC U  &my_lt SYM I     &kp O   &kp P    &kp MINUS
                 &kp LSHFT &kp A &kp S &kp D &kp F &kp G             &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
                 &kp LALT &kp Z &kp X &kp C &kp V &kp B              &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp RCTRL
-                        &kp LGUI &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &kp BSPC
+                        &kp LGUI &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &bspc_del
             >;
         };
 
@@ -86,7 +107,7 @@ ZMK_MACRO(uc_pound,
                 &kp ESC   &kp N1   &kp N2 &kp N3   &kp N4   &kp N5                                  &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp DEL
                 &kp LSHFT &kp N1   &kp N2 &kp N3   &kp N4   &kp N5                                  &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp RSHFT
                 &kp LALT &to NUM &kp KP_DIVIDE &kp KP_ASTERISK &kp KP_MINUS &kp KP_PLUS       &kp KP_DIVIDE &kp KP_ASTERISK &kp KP_MINUS &kp KP_PLUS &to NUM &kp RALT
-                            &kp LGUI &mt LCTRL RET &my_lt NAV SPACE                         &kp RSHFT &my_lt NAV RET &kp BSPC
+                            &kp LGUI &mt LCTRL RET &my_lt NAV SPACE                         &kp RSHFT &my_lt NAV RET &bspc_del
             >;
         };
 
@@ -96,7 +117,7 @@ ZMK_MACRO(uc_pound,
                 &kp ESC   &none &kp KP_N7 &kp KP_N8 &kp KP_N9 &none          &none &kp KP_N7 &kp KP_N8 &kp KP_N9 &none &kp DEL
                 &kp LSHFT &none &kp KP_N4 &kp KP_N5 &kp KP_N6 &none          &none &kp KP_N4 &kp KP_N5 &kp KP_N6 &none &kp RSHFT
                 &to BASE  &kp KP_N0 &kp KP_N1 &kp KP_N2 &kp KP_N3 &none       &kp KP_N0 &kp KP_N1 &kp KP_N2 &kp KP_N3 &none &to BASE
-                            &kp LGUI &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &kp BSPC
+                            &kp LGUI &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &bspc_del
             >;
         };
 
@@ -114,7 +135,7 @@ ZMK_MACRO(uc_pound,
             display-name = "ACC";
             bindings = <
                    &kp TAB   &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                    &kp F6 &kp F7 &kp F8 &kp F9 &kp F10  &kp DEL
-                   &kp LSHFT &uc_pound &none &none &kp F11 &kp F12              &none &none &none &none &none &kp RSHFT
+                   &kp LSHFT &uc_a &none &none &kp F11 &kp F12              &none &none &none &none &none &kp RSHFT
                    &kp LALT  &none &none &none &none &none                         &none &none &none &none &none &kp RCTRL
                    &to BASE &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &to BASE
            >;
@@ -126,7 +147,7 @@ ZMK_MACRO(uc_pound,
                 &kp ESC &kp GRAVE &mkp MB4 &mkp MB3 &mkp MB2 &mkp MB5       &kp PG_UP &kp HOME  &kp UP     &kp END     &kp LEFT_BRACKET  &kp RIGHT_BRACKET
                 &kp LSHFT &none &none &none &none &none                     &kp PG_DN &kp LEFT  &kp DOWN   &kp RIGHT   &kp EQUAL       &to FN
                 &kp LALT &kp BSLH &to ADJ &to FN &none &kp PSCRN           &kp K_APP &kp ENTER  &kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp FSLH &to ADJ
-                               &kp LGUI &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &kp BSPC
+                               &kp LGUI &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &bspc_del
             >;
         };
 
