@@ -41,11 +41,12 @@ ZMK_MOD_MORPH(bspc_del,
 )
 
 // tap: à | shift: À | lctrl: á | gui: å | alt: ä  (shift applies to all)
-QUAD_MORPH(uc_a, ALT, GUI, CTL,
-  &uc UC_LATIN_LETTER_A_WITH_GRAVE,
-  &uc UC_LATIN_LETTER_A_WITH_ACUTE,
-  &uc UC_LATIN_LETTER_A_WITH_RING_ABOVE,
-  &uc UC_LATIN_LETTER_A_WITH_DIAERESIS)
+//QUAD_MORPH(uc_a, ALT, GUI, CTL,
+//  &uc UC_LATIN_LETTER_A_WITH_GRAVE,
+//  &uc UC_LATIN_LETTER_A_WITH_ACUTE,
+//  &uc UC_LATIN_LETTER_A_WITH_RING_ABOVE,
+//  &uc UC_LATIN_LETTER_A_WITH_DIAERESIS)
+SIMPLE_MORPH(uc_A, CTL, &uc UC_LATIN_LETTER_A_WITH_GRAVE, &uc UC_LATIN_LETTER_A_WITH_ACUTE)
 
 / {
     conditional_layers {compatible = "zmk,conditional-layers";};
