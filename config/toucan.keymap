@@ -41,15 +41,9 @@ ZMK_MOD_MORPH(bspc_del,
 )
 
 // ºª€£°èÈéÉàÀáÁ←↓↑→ùÙúÚìÌíÍòÒóÓ«»
-// tap: à | shif + tap: À | ctrl + tap: á | ctrl + shift + tap: Á
-//SIMPLE_MORPH(uc_a, SFT, &uc_lower_a_grave, &uc_a_inner_1)
-//SIMPLE_MORPH(uc_a_inner_1, CTL, &uc_upper_a_grave, &uc_lower_a_acute)
-
-//UC_MY_MACRO(uc_lower_a_grave, KP_N0, KP_N2, KP_N2, KP_N4)
-//UC_MY_MACRO(uc_upper_a_grave, KP_N0, KP_N1, KP_N9, KP_N2)
-//UC_MY_MACRO(uc_lower_a_acute, KP_N0, KP_N2, KP_N2, KP_N5)
-
-#define uc_a &uc UC_DE_AE
+// tap: à | shift+tap: À | ctrl+tap: á | ctrl+shift+tap: Á
+// uc behavior handles lowercase/uppercase internally via shift
+SIMPLE_MORPH(uc_a, CTL, &uc UC_LATIN_LETTER_A_WITH_GRAVE, &uc UC_LATIN_LETTER_A_WITH_ACUTE)
 
 / {
     conditional_layers {compatible = "zmk,conditional-layers";};
@@ -141,7 +135,7 @@ ZMK_MOD_MORPH(bspc_del,
             display-name = "ACC";
             bindings = <
                    &kp TAB   &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                    &kp F6 &kp F7 &kp F8 &kp F9 &kp F10  &kp DEL
-                   &kp LSHFT uc_a &none &none &kp F11 &kp F12              &none &none &none &none &none &kp RSHFT
+                   &kp LSHFT &uc_a &none &none &kp F11 &kp F12              &none &none &none &none &none &kp RSHFT
                    &kp LALT  &none &none &none &none &none                         &none &none &none &none &none &kp RCTRL
                             &to BASE &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &to BASE
            >;
