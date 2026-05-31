@@ -27,6 +27,9 @@ manifest:
     - name: zmk-helpers
       remote: urob
       revision: v0.3
+    - name: zmk-unicode
+      remote: urob
+      revision: v0.3 # Should match ZMK release.
     - name: prospector-zmk-module
       remote: prospector
       revision: v2.2.1
