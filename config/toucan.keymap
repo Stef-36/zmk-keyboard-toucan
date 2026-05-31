@@ -25,12 +25,13 @@
                 bindings = <BINDING1>, <BINDING2>;)
 
 // 4-output cascade: none=B1, MOD3=B2, MOD2=B3, MOD1=B4 (MOD1 highest priority).
-// Pass explicit intermediate refs to avoid &NAME##_X spacing issue in dtc lexer.
-// QUAD_MORPH(name, &name_1, &name_2, MOD1, MOD2, MOD3, B1, B2, B3, B4)
-#define QUAD_MORPH(NAME, REF1, REF2, MOD1, MOD2, MOD3, B1, B2, B3, B4)        \
-  SIMPLE_MORPH(REF2, MOD3, B1, B2)                                        \
-  SIMPLE_MORPH(REF1, MOD2, &REF2, B3)                                      \
-  SIMPLE_MORPH(NAME,     MOD1, &REF1, B4)
+// QUAD_MORPH(my_key, ALT, CTL, SFT,  &kp A, &kp B, &kp C, &kp D)
+//                    ^^^  ^^^  ^^^   ^^^^^  ^^^^^  ^^^^^  ^^^^^
+//                                    none   SFT    CTL    ALT
+#define QUAD_MORPH(NAME, MOD1, MOD2, MOD3, B1, B2, B3, B4)                    \
+  SIMPLE_MORPH(int_##NAME##_2, MOD3, B1, B2)                                        \
+  SIMPLE_MORPH(int_##NAME##_1, MOD2, &int_##NAME##_2, B3)                                 \
+  SIMPLE_MORPH(NAME,     MOD1, &int_##NAME##_1, B4)
 
 
 // tap: backspace | shift + tap: delete
@@ -40,7 +41,7 @@ ZMK_MOD_MORPH(bspc_del,
 )
 
 // tap: à | shift: À | lctrl: á | gui: å | alt: ä  (shift applies to all)
-QUAD_MORPH(uc_a, uc_a_1, uc_a_2, ALT, GUI, CTL,
+QUAD_MORPH(uc_a, ALT, GUI, CTL,
   &uc UC_LATIN_LETTER_A_WITH_GRAVE,
   &uc UC_LATIN_LETTER_A_WITH_ACUTE,
   &uc UC_LATIN_LETTER_A_WITH_RING_ABOVE,
