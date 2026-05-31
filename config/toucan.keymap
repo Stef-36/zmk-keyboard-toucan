@@ -146,7 +146,7 @@ TRI_MORPH(uc_u, &uc UC_LATIN_LETTER_U_WITH_GRAVE, &uc UC_LATIN_LETTER_U_WITH_ACU
             display-name = "ACC";
             bindings = <
                    &kp TAB   XXXXX uc_eu &uc_e XXXXX XXXXX               &uc_u &uc_i &uc_o XXXXX XXXXX &kp DEL
-                   &kp LSHFT &uc_a XXXXX XXXXX XXXXX XXXXX               uc_lx uc_dw uc_up uc_rxp XXXXX &kp RSHFT
+                   &kp LSHFT &uc_a XXXXX XXXXX XXXXX XXXXX               uc_lx uc_dw uc_up uc_rx XXXXX &kp RSHFT
                    &kp LALT  XXXXX XXXXX uc_c XXXXX XXXXX                XXXXX XXXXX XXXXX XXXXX XXXXX &kp RCTRL
                             &to BASE &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &to BASE
            >;
