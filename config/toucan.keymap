@@ -24,16 +24,15 @@
   ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
                 bindings = <BINDING1>, <BINDING2>;)
 
-//// Define zmk-macro for unicode alt+number for less repetition
-//#define UC_MY_MACRO(NAME, NUM1, NUM2, NUM3, NUM4)                               \
-//    ZMK_MACRO(NAME,                                                             \
-//        wait-ms = <40>;                                                         \
-//        tap-ms = <40>;                                                          \
-//        bindings                                                                \
-//        = <&macro_press &kp LALT>                                               \
-//        , <&macro_tap &kp NUM1 &kp NUM2 &kp NUM3 &kp NUM4>                      \
-//        , <&macro_release &kp LALT>                                             \
-//        ;)
+// 4-output cascade: none=B1, MOD3=B2, MOD2=B3, MOD1=B4 (MOD1 highest priority).
+// QUAD_MORPH(my_key, ALT, CTL, SFT,  &kp A, &kp B, &kp C, &kp D)
+//                    ^^^  ^^^  ^^^   ^^^^^  ^^^^^  ^^^^^  ^^^^^
+//                                    none   SFT    CTL    ALT
+#define QUAD_MORPH(NAME, MOD1, MOD2, MOD3, B1, B2, B3, B4)                    \
+  SIMPLE_MORPH(NAME##_2, MOD3, B1, B2)                                        \
+  SIMPLE_MORPH(NAME##_1, MOD2, &NAME##_2, B3)                                 \
+  SIMPLE_MORPH(NAME,     MOD1, &NAME##_1, B4)
+
 
 // tap: backspace | shift + tap: delete
 ZMK_MOD_MORPH(bspc_del,
@@ -41,10 +40,12 @@ ZMK_MOD_MORPH(bspc_del,
     mods = <(MOD_LSFT|MOD_RSFT)>;
 )
 
-// ºª€£°èÈéÉàÀáÁ←↓↑→ùÙúÚìÌíÍòÒóÓ«»
-// tap: à | shift+tap: À | ctrl+tap: á | ctrl+shift+tap: Á
-// uc behavior handles lowercase/uppercase internally via shift
-SIMPLE_MORPH(uc_a, CTL, &uc UC_LATIN_LETTER_A_WITH_GRAVE, &uc UC_LATIN_LETTER_A_WITH_ACUTE)
+// tap: à | shift: À | lctrl: á | gui: å | alt: ä  (shift applies to all)
+QUAD_MORPH(uc_a, ALT, GUI, CTL,
+  &uc UC_LATIN_LETTER_A_WITH_GRAVE,
+  &uc UC_LATIN_LETTER_A_WITH_ACUTE,
+  &uc UC_LATIN_LETTER_A_WITH_RING_ABOVE,
+  &uc UC_LATIN_LETTER_A_WITH_DIAERESIS)
 
 / {
     conditional_layers {compatible = "zmk,conditional-layers";};
