@@ -20,7 +20,7 @@
 #define XXX &none
 
 // Define mod-morph with a *single* mod trigger for less repetition.
-#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2)                            \
+#define SYMMETRIC_MORPH(NAME, MOD, BINDING1, BINDING2)                            \
   ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
                 bindings = <BINDING1>, <BINDING2>;)
 
@@ -28,11 +28,15 @@
 // QUAD_MORPH(my_key, ALT, CTL, SFT,  &kp A, &kp B, &kp C, &kp D)
 //                    ^^^  ^^^  ^^^   ^^^^^  ^^^^^  ^^^^^  ^^^^^
 //                                    none   SFT    CTL    ALT
-#define QUAD_MORPH(NAME, B1, B2, B3, B4)                    \
-  SIMPLE_MORPH(int_##NAME##_2, CTL, B1,              B2)    \
-  SIMPLE_MORPH(int_##NAME##_1, ALT, &int_##NAME##_2, B3)    \
-  SIMPLE_MORPH(NAME,           GUI, &int_##NAME##_1, B4)
-
+#define QUAD_MORPH(NAME, B1, B2, B3, B4)                       \
+  SYMMETRIC_MORPH(int_##NAME##_2, CTL, B1,              B2)    \
+  SYMMETRIC_MORPH(int_##NAME##_1, ALT, &int_##NAME##_2, B3)    \
+  ZMK_MACRO(mcr_##NAME,                                        \
+    bindings = <&macro_release &kp LGUI &kp RGUI>              \
+    , <B4>                                                     \
+    , <&macro_pause_for_release>;                              \
+    )                                                          \
+  SYMMETRIC_MORPH(NAME,           GUI, &int_##NAME##_1, &mcr_##NAME)
 
 // tap: backspace | shift + tap: delete
 ZMK_MOD_MORPH(bspc_del,
@@ -42,7 +46,7 @@ ZMK_MOD_MORPH(bspc_del,
 
 // tap: à | shift: À | lctrl: á | gui: å | alt: ä  (shift applies to all)
 QUAD_MORPH(uc_a, &uc UC_LATIN_LETTER_A_WITH_GRAVE, &uc UC_LATIN_LETTER_A_WITH_ACUTE, &uc UC_LATIN_LETTER_A_WITH_RING_ABOVE, &uc UC_LATIN_LETTER_A_WITH_DIAERESIS)
-//SIMPLE_MORPH(uc_a, CTL, &uc UC_LATIN_LETTER_A_WITH_GRAVE, &uc UC_LATIN_LETTER_A_WITH_ACUTE)
+//SYMMETRIC_MORPH(uc_a, CTL, &uc UC_LATIN_LETTER_A_WITH_GRAVE, &uc UC_LATIN_LETTER_A_WITH_ACUTE)
 
 / {
     conditional_layers {compatible = "zmk,conditional-layers";};
