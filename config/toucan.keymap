@@ -50,11 +50,11 @@ TRI_MORPH(uc_u, &uc UC_LATIN_LETTER_U_WITH_GRAVE, &uc UC_LATIN_LETTER_U_WITH_ACU
 //#define UC_LEFT_POINTING_DOUBLE_ANGLE_QUOTATION_MARK
 //#define UC_RIGHT_POINTING_DOUBLE_ANGLE_QUOTATION_MARK
 
-#define uc_eu 0x20AC 0xa3   // € | £
-#define uc_lx 0x2190 0x1F808  // ← | 🠈
-#define uc_up 0x2191 0x1F809  // ↑ | 🠉
-#define uc_rx 0x2192 0x1F80A  // → | 🠊
-#define uc_dw 0x2193 0x1F80B  // ↓ | 🠋
+#define uc_eu &uc 0x20AC 0xa3   // € | £
+#define uc_lx &uc 0x2190 0x1F808  // ← | 🠈
+#define uc_up &uc 0x2191 0x1F809  // ↑ | 🠉
+#define uc_rx &uc 0x2192 0x1F80A  // → | 🠊
+#define uc_dw &uc 0x2193 0x1F80B  // ↓ | 🠋
 
 / {
     conditional_layers {compatible = "zmk,conditional-layers";};
