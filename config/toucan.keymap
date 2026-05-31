@@ -6,6 +6,7 @@
 #include <dt-bindings/zmk/mouse.h>
 #include "zmk-helpers/helper.h"
 #include <behaviors/unicode.dtsi>
+#include <zmk-unicode/keys-full.h>
 
 #define BASE 0
 #define ADJ  1
