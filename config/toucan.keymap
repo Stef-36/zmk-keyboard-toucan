@@ -47,9 +47,10 @@ TRI_MORPH(uc_o, &uc UC_LATIN_LETTER_O_WITH_GRAVE, &uc UC_LATIN_LETTER_O_WITH_ACU
 TRI_MORPH(uc_u, &uc UC_LATIN_LETTER_U_WITH_GRAVE, &uc UC_LATIN_LETTER_U_WITH_ACUTE, &uc UC_LATIN_LETTER_U_WITH_DIAERESIS)
 // tap: ç | shift: Ç
 #define uc_c &uc UC_LATIN_LETTER_C_WITH_CEDILLA
-//#define UC_LEFT_POINTING_DOUBLE_ANGLE_QUOTATION_MARK
-//#define UC_RIGHT_POINTING_DOUBLE_ANGLE_QUOTATION_MARK
 
+#define uc_aq_lx &uc 0xAB 0x275D // « | ❝
+#define uc_aq_rx &uc 0xBB 0x275E // » | ❞
+#define uc_dg &uc 0xB0 0xAA // ° | ª
 #define uc_eu &uc 0x20AC 0xa3   // € | £
 #define uc_lx &uc 0x2190 0x1F808  // ← | 🠈
 #define uc_up &uc 0x2191 0x1F809  // ↑ | 🠉
@@ -145,9 +146,9 @@ TRI_MORPH(uc_u, &uc UC_LATIN_LETTER_U_WITH_GRAVE, &uc UC_LATIN_LETTER_U_WITH_ACU
         acc {
             display-name = "ACC";
             bindings = <
-                   &kp TAB   XXXXX uc_eu &uc_e XXXXX XXXXX               &uc_u &uc_i &uc_o XXXXX XXXXX &kp DEL
-                   &kp LSHFT &uc_a XXXXX XXXXX XXXXX XXXXX               uc_lx uc_dw uc_up uc_rx XXXXX &kp RSHFT
-                   &kp LALT  XXXXX XXXXX uc_c XXXXX XXXXX                XXXXX XXXXX XXXXX XXXXX XXXXX &kp RCTRL
+                   &kp TAB   XXXXX uc_eu &uc_e XXXXX XXXXX               XXXXX &uc_u &uc_i &uc_o uc_dg &kp DEL
+                   &kp LSHFT &uc_a XXXXX XXXXX XXXXX XXXXX               XXXXX uc_lx uc_dw uc_up uc_rx &kp RSHFT
+                   &kp LALT  XXXXX XXXXX uc_c XXXXX XXXXX                XXXXX XXXXX uc_aq_lx uc_aq_rx XXXXX &kp RCTRL
                             &to BASE &mt LCTRL RET &my_lt NAV SPACE      &kp RSHFT &my_lt NAV RET &to BASE
            >;
         };
